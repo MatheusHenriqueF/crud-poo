@@ -28,9 +28,11 @@ require_once '../Model/crud.class.php';
 							<input type="submit" name="submit_alterar" id="submit">
 						</form>
 						<div id="sucesso">
-							<?php 
-								include '../Controller/alterarFuncionario.php';
-							?>
+							<p>
+								<?php 
+									include '../Controller/alterarFuncionario.php';
+								?>
+							</p>
 						</div>
 						<div id="info_user">
 							<?php 

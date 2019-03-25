@@ -43,9 +43,11 @@
 							</form>
 						</div>
 						<div id="sucesso" style="margin-left: 500px;">
-							<?php
-								include '../Controller/cadastrarFuncionario.php';
-							?>
+							<p>
+								<?php
+									include '../Controller/cadastrarFuncionario.php';
+								?>
+							</p>
 						</div>
 				</div>
 		</div>

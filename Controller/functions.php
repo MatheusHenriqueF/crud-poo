@@ -5,55 +5,55 @@ Class Functions{
 		}
 
 		public function listaFuncionario($id, $nome, $cpf){
-			echo "<p>".$nome.", CPF: ".$cpf."</p>";
+			echo "<p>".$nome." CPF: ".$cpf."</p>";
 			echo "<a href='alterarFuncionarios.php?alterar=".$id." '>Alterar</a> | ";
 			echo "<a href='verFuncionarios.php?deleta=".$id." '>Deletar</a>";
 		}
 
 		/* Respostas para Criar, Alterar e Deletar Funcionários */
 		public function updateSucess(){
-			echo "<p>Nome alterado com sucesso.</p>";
+			echo "Nome alterado com sucesso.";
 		}
 		public function errorMysql(){
-			echo "<p>Error: </p>".mysqli_error();
+			echo "Error: ".mysqli_error();
 		}
 		public function insertSucess(){
-			echo "<p>Cadastrado com sucesso.</p>";
+			echo "Cadastrado com sucesso.";
 		}
 		public function deleteSucess(){
-			echo "<p>Deletado com sucesso.</p>";
-			echo "<p><a href=" .$_SERVER['PHP_SELF']. ">Clique aqui para atualizar.</p>";
+			echo "Deletado com sucesso.</p>";
+			echo "<a href=" .$_SERVER['PHP_SELF']. ">Clique aqui para atualizar.";
 		}
 		public function semCadastros(){
-			echo "<p>Não há nenhum funcionário registrado.</p>";
+			echo "Não há nenhum funcionário registrado.";
 		}
 
 		/* Respostas da Validação de Cadastro de Funcionário */
 		public function avisoNome(){
-			echo "<p>O nome não pode ser maior que 40 caracteres.</p>";
+			echo "O nome não pode ser maior que 40 caracteres.";
 		}
 		public function avisoCpf(){
-			echo "<p>O CPF não pode ter mais que 11 caracteres.</p>";
+			echo "O CPF não pode ter mais que 11 caracteres.";
 		}
 		public function avisoEndereco(){
-			echo "<p>O Endereço não pode ter mais que 70 caracteres.</p>";
+			echo "O Endereço não pode ter mais que 70 caracteres.";
 		}
 		public function avisoCep(){
-			echo "<p>O CEP não pode ter mais que 8 dígitos.</p>";
+			echo "O CEP não pode ter mais que 8 dígitos.";
 		}
 		public function avisoIdade(){
-			echo "<p>A idade não pode passar de 2 caracteres.</p>";
+			echo "A idade não pode passar de 2 caracteres.";
 		}
 		public function avisoEscolaridade(){
-			echo "<p>A Escolaridade não pode ter mais que 1 digito.</p>";
+			echo "A Escolaridade não pode ter mais que 1 digito.";
 		}
 		public function avisoCamposVazios(){
-			echo "<p>Favor, preencher todos os campos.</p>";
+			echo "Favor, preencher todos os campos.";
 		}
 
 		/* Respostas de Validação de Update */
 		public function avisoNomeUpdate(){
-			echo "<p>O nome campo está vazio.</p>";
+			echo "O nome campo está vazio.";
 		}
 }
 ?>

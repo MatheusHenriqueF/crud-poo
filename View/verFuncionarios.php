@@ -35,9 +35,11 @@
 
           <div id="alter_del">
               <div id="info_alter_del">
-                <?php 
-                    include '../Controller/verFuncionarios.php';
-                ?>      
+                <p>
+                  <?php 
+                      include '../Controller/verFuncionarios.php';
+                  ?>      
+                </p>
              </div>
           </div>
       </div>

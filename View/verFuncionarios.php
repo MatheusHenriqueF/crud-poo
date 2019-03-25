@@ -1,6 +1,8 @@
 <?php
   require_once '../Model/crud.class.php';
+  require_once '../Controller/functions.php';
   $mostrar = new Crud();
+  $functions = new Functions();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +25,11 @@
                   <th>Funcionários</th>
               </tr>
               <tr>
-                  <td><?php $mostrar->select();?></td>
+                  <td>
+                      <ul>
+                        <?php $mostrar->select();?>
+                      </ul>
+                  </td>
               </tr>
           </table>
 

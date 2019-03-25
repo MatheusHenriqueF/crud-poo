@@ -1,6 +1,7 @@
 <?php
 require_once 'conexao.php';
 require_once 'validacoes.class.php';
+require_once '../Controller/functions.php';
 
 class Crud{
 	private $id;
@@ -12,25 +13,27 @@ class Crud{
 	private $escolaridade;
 
 	public function select(){
+		$functions = new Functions();
 		$conexao = new Conexao();
 		$sql = "SELECT * FROM cadastro";
 		$query = mysqli_query($conexao->conecta(), $sql);
 
-		while ($linha = mysqli_fetch_array($query)) {
+		foreach ($query as $linha) {
 			$id = $linha['id'];
 			$nome = $linha['nome'];
-			echo "<li><a href='verFuncionarios.php?id=".$id."'>".$nome."</a></li>";
+			$functions->listarId($id,$nome);
 		}
 
 		if(mysqli_num_rows($query) <= 0){
-			echo "Não há nenhum funcionário registrado.";
+			$functions->semCadastros();
 		}
 	}
 
 	public function insert(){
 		$conexao = new Conexao();
+		$functions = new Functions();
 		$sql = "INSERT INTO cadastro(nome, cpf, idade, endereco, cep, escolaridade) VALUES";
-		$sql .= 
+	    $sql .= 
 				"(
 				'".$this->getNome()."',
 				'".$this->getCpf()."',
@@ -40,33 +43,35 @@ class Crud{
 				'".$this->getEscolaridade()."')";
 
 		if(mysqli_query($conexao->conecta(), $sql) or die (mysqli_error())) {
-			echo "Inserido com sucesso!";
+			$functions->insertSucess();
 		}else{
-			echo "Error: ".mysqli_error();
+			$functions->errorMysql();
 		}
 	}
 
 	public function update(){
 		$conexao = new Conexao();
-		$sql = "UPDATE cadastro SET nome = '{$this->getNome()}' WHERE id= '{$this->getId()}' ";
+		$functions = new Functions();
+		$sql = "UPDATE cadastro SET nome = '{$this->getNome()}' WHERE id= '{$this->getId()}'";
 
 		if(mysqli_query($conexao->conecta(), $sql) or die (mysqli_error())){
-			echo "<p>Nome alterado com sucesso!</p>";
+			$functions->updateSucess();
 		}else{
-			echo "<p>Error: </p>".mysqli_error();
+			$functions->errorMysql();
 		}
 
 	}
 
 	public function delete(){
 		$conexao = new Conexao();
+		$functions = new Functions();
 		$sql = "DELETE FROM cadastro WHERE id = {$this->getId()}";
 
 		if(mysqli_query($conexao->conecta(), $sql) or die (mysqli_error())){
-			header("Location: verFuncionarios.php");
+			$functions->deleteSucess();
 		}
 		else{
-			echo "Error: ".mysqli_error();
+			$functions->errorMysql();
 		}
 	}
 

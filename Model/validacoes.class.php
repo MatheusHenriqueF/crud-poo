@@ -1,10 +1,12 @@
 <?php
 require_once 'crud.class.php';
+require_once '../Controller/functions.php';
 
 class Validacoes extends Crud{
 
 	public function filtraCadastro($nome, $cpf, $idade, $endereco, $cep, $escolaridade){
 		$conexao = new Conexao();
+		$functions = new Functions();
 		$nome = mysqli_real_escape_string($conexao->conecta(), $nome);
 		$cpf = mysqli_real_escape_string($conexao->conecta(), $cpf);
 		$idade = mysqli_real_escape_string($conexao->conecta(), $idade);
@@ -21,67 +23,52 @@ class Validacoes extends Crud{
 		$this->setEscolaridade($escolaridade);
 		$this->verificaCadastro();
 	}else{
-		echo "Error: ".mysqli_error();
+		$functions->errorMysql();
 		exit;
 	}
 }
 
 	public function verificaCadastro(){
+		$functions = new Functions();
+
 		if(strlen($this->getNome()) >= 41){
-			echo "O nome não pode ser maior que 40 caracteres.";
+			$functions->avisoNome();
 			exit;
 		}elseif(strlen($this->getCpf()) >= 12){
-			echo "O CPF não pode ter mais que 11 caracteres.";
+			$functions->avisoCpf();
 			exit;
 		}elseif(strlen($this->getEndereco()) >= 71){
-			echo "O Endereço não pode ter mais que 70 caracteres.";
+			$functions->avisoEndereco();
 			exit;
 		}elseif(strlen($this->getCep()) >= 9){
-			echo "O CEP não pode ter mais que 8 dígitos";
+			$functions->avisoCep();
 			exit;
 		}elseif(strlen($this->getIdade()) >= 3){
-			echo "A idade não pode passar de 2 caracteres.";
+			$functions->avisoIdade();
 			exit;
 		}elseif(strlen($this->getEscolaridade()) >= 2){
-			echo "A Escolaridade não pode ter mais que 1 digito";
+			$functions->avisoEscolaridade();
 			exit;
-		}elseif(empty($this->getNome() && $this->getCpf() && $this->getEndereco() && $this->getCep() && $this->getIdade() && $this->getEscolaridade())){
-			echo "Favor, preencher todos os campos!";
+		}elseif(empty($this->getNome() 
+			&& $this->getCpf() 
+			&& $this->getEndereco() 
+			&& $this->getCep() 
+			&& $this->getIdade() 
+			&& $this->getEscolaridade())){
+			$functions->avisoCamposVazios();
 		}else{
 			$this->insert();
 		}
 	}
 
-	public function filtraFuncionario($id){
-		$conexao = new Conexao();
-		$id = mysqli_real_escape_string($conexao->conecta(), $id);
-		$this->setId($id);
-		$this->mostraFuncionario();
-	}
-
-	public function mostraFuncionario(){
-		$conexao = new Conexao();
-		$sql = "SELECT * FROM cadastro WHERE id = '{$this->getId()}'";
-		$query = mysqli_query($conexao->conecta(), $sql);
-
-		while ($linha = mysqli_fetch_array($query)) {
-			$id = $linha['id'];
-			$nome = $linha['nome'];
-			$cpf = $linha['cpf'];
-			
-			echo "<p>".$nome.", CPF: ".$cpf."</p>";
-			echo "<a href='alterarFuncionarios.php?alterar=".$id." '>Alterar</a> | ";
-			echo "<a href='verFuncionarios.php?deleta=".$id." '>Deletar</a>";
-		}
-	}
-
 	public function filtraUpdate($id, $nome){
 		$conexao = new Conexao();
+		$functions = new Functions();
 		$id = mysqli_real_escape_string($conexao->conecta(), $id);
 		$nome = mysqli_real_escape_string($conexao->conecta(), $nome);
 
 		if(empty($nome)){
-			echo "<p>O campo está vazio.</p>";
+			$functions->avisoNomeUpdate();
 		}else{
 			$this->setId($id);
 			$this->setNome($nome);
@@ -95,6 +82,27 @@ class Validacoes extends Crud{
 		$this->setId($id);
 		$this->delete();
 
+	}
+
+	public function filtraFuncionario($id){
+		$conexao = new Conexao();
+		$id = mysqli_real_escape_string($conexao->conecta(), $id);
+		$this->setId($id);
+		$this->mostraFuncionario();
+	}
+
+	public function mostraFuncionario(){
+		$conexao = new Conexao();
+		$functions = new Functions();
+		$sql = "SELECT * FROM cadastro WHERE id = '{$this->getId()}'";
+		$query = mysqli_query($conexao->conecta(), $sql);
+		
+		foreach ($query as $linha) {
+			$id = $linha['id'];
+			$nome = $linha['nome'];
+			$cpf = $linha['cpf'];
+			$functions->listaFuncionario($id,$nome,$cpf);
+		}
 	}
 }
 

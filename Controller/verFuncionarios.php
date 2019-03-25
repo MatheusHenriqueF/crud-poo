@@ -11,4 +11,5 @@ if(isset($_GET['deleta'])){
 	$id = $_GET['deleta'];
 	$validacoes->filtraDeleta($id);
 }
+
 ?>

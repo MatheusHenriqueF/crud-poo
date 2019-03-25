@@ -9,8 +9,7 @@ Class Functions{
 			echo "<a href='alterarFuncionarios.php?alterar=".$id." '>Alterar</a> | ";
 			echo "<a href='verFuncionarios.php?deleta=".$id." '>Deletar</a>";
 		}
-
-		/* Respostas para Criar, Alterar e Deletar Funcionários */
+		
 		public function updateSucess(){
 			echo "Nome alterado com sucesso.";
 		}
@@ -28,7 +27,6 @@ Class Functions{
 			echo "Não há nenhum funcionário registrado.";
 		}
 
-		/* Respostas da Validação de Cadastro de Funcionário */
 		public function avisoNome(){
 			echo "O nome não pode ser maior que 40 caracteres.";
 		}
@@ -50,10 +48,9 @@ Class Functions{
 		public function avisoCamposVazios(){
 			echo "Favor, preencher todos os campos.";
 		}
-
-		/* Respostas de Validação de Update */
+		
 		public function avisoNomeUpdate(){
-			echo "O nome campo está vazio.";
+			echo "O campo nome está vazio.";
 		}
 }
 ?>

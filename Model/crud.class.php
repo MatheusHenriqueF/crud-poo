@@ -1,6 +1,6 @@
 <?php
 require_once 'conexao.php';
-require_once 'validacoes.class.php';
+require_once '../Controller/validacoes.class.php';
 require_once '../Controller/functions.php';
 
 class Crud{
@@ -72,6 +72,20 @@ class Crud{
 		}
 		else{
 			$functions->errorMysql();
+		}
+	}
+
+	public function mostraFuncionario(){
+		$conexao = new Conexao();
+		$functions = new Functions();
+		$sql = "SELECT * FROM cadastro WHERE id = '{$this->getId()}'";
+		$query = mysqli_query($conexao->conecta(), $sql);
+		
+		foreach ($query as $linha) {
+			$id = $linha['id'];
+			$nome = $linha['nome'];
+			$cpf = $linha['cpf'];
+			$functions->listaFuncionario($id,$nome,$cpf);
 		}
 	}
 
